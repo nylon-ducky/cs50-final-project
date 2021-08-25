@@ -9,7 +9,11 @@ let stack = [];
 
 // p5 required function
 function setup() {
-  createCanvas(750, 750);
+  let cnv = createCanvas(750, 750);
+  cnv.center('horizontal');
+
+
+
   cols = floor(width/w);
   rows = floor(height/w);
   // make the cells

@@ -1,25 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-.cell {
-    display: inline-block;
-    background-color: blue;
-    color: rgba(255, 255, 255, 0);
-    width: 30px;
-    height: 25px;
-  }
-  */
+body {
+  background-color: darkslategray;
+  padding-top: 9vh;
+}
