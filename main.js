@@ -45,9 +45,10 @@ function draw() {
   if (stack.length == 0 && ending > starting + 100){
 
     current.highlight(255,255,255)
-    console.log("returned!" + ending);
+    console.log(current + current.walls);
     noLoop();
     console.log("stopped!");
+    solve(cells[0])
   }
 
   if (next) {
@@ -113,13 +114,13 @@ function Cell(i,j) {
       return undefined;
     }
   }
-  // make th eleading block bright green
+  // make the leading block bright green
   this.highlight = (r,g,b)=> {
     let x = this.i * w;
     let y = this.j * w;
     noStroke();
     fill(r,g,b);
-    rect(x,y,w,w);
+    rect(x,y,50,50);
   }
   // display cell, control walls
   this.display = function() {
@@ -170,7 +171,124 @@ function removeWalls(c,n) {
     c.walls[2] = false;
     n.walls[0] = false;
   }
+
 }
+
+let solstack = [];
+function solve(i) {
+  
+  let neighbors = [];
+  //let i = 0;
+  let n;
+  let crnt = i;
+  //crnt['i'] = i;
+  //crnt['j'] = j;
+
+  crnt.highlight(255,255,20);
+
+  console.log(crnt)
+
+
+  // must account for previous cell, so it doesnt go back and forth
+
+    if (crnt.vis == false || crnt.vis == undefined){
+      crnt.vis = true;
+      solstack.push(crnt);
+    }
+  
+  
+  //console.log(crnt.vis)
+  //for (let s = 0; s < solstack.length; s++)
+  for (let i = 0; i < crnt.walls.length; i++){  
+    //console.log(crnt.walls.length)
+    console.log(crnt.walls[i])
+    if (i == 0 && crnt.walls[i] == false) {
+      neighbors.push(cells[cells.indexOf(crnt) - rows]);
+    }
+    else if (i == 1 && crnt.walls[i] == false) {
+      neighbors.push(cells[cells.indexOf(crnt) + 1]);
+    }
+    else if (i == 2 && crnt.walls[i] == false) {
+      neighbors.push(cells[cells.indexOf(crnt) + rows]);
+    }
+    else if (i == 3 && crnt.walls[i] == false) {
+      neighbors.push(cells[cells.indexOf(crnt) - 1]);
+    }
+    console.log(neighbors)
+    console.log(solstack)
+  }
+
+  for (let x = 0; x < neighbors.length; x++) {
+    neighbors[x].highlight(255,0,0)
+    if (neighbors[x].vis == true) {
+      console.log(neighbors[x])
+      console.log(neighbors)
+      neighbors.slice(neighbors[x]);
+      n = neighbors[0]
+      console.log(n)
+      //neighbors.slice(neighbors[x])
+        //n = neighbors[x]
+      console.log(neighbors)
+    }else if (neighbors.length == 1){
+      n = neighbors[0];
+    }else {
+      n = solstack.pop()
+    }
+  }
+  /*
+  if (neighbors.length > 1){
+    if (neighbors[1].vis != true){
+      n = neighbors[1];
+      solve(n)
+    } else if (neighbors[0].vis != true) {
+      n = neighbors[0];
+      solve(n)
+    } else if (neighbors[2].vis != true) {
+      n = neighbors[2];
+      solve(n);
+    }
+  }*/
+  console.log(neighbors.length)
+  console.log(solstack.length)
+  console.log(cells.length)
+  console.log(n)
+  //cells[n['i'] + (n['j'] * 10) + 1].highlight(255,0,255)
+  //crnt['i'] = n['i'];
+  //crnt['j'] = n['j'];
+  //let ni = n['i'] + (n['j'] * 10);
+  //console.log(ni)
+  for (let i = 0; i < solstack.length; i++) {
+    solstack[i].highlight(0,255,255)
+  }
+ if (n.vis != true || n.vis == undefined || !n.vis && solstack.length < cells.length) {
+   //c = n['i'] + (n['j'] * 10);
+   c = n;
+   neighbors = [];
+   console.log("c = " + c)
+   solve(c)
+}else{
+    //neighbors.pop(n);
+    //solstack.pop(n);
+
+    console.log(crnt)
+    console.log(neighbors);
+    //console.log("prev c = " + c)
+    console.log(n)
+    console.log(cells[cells.length])
+    
+    return;
+ }
+ 
+}
+
+
+
+
+
+
+
+
+
 
 
 

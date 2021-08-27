@@ -3,10 +3,3 @@ body {
   padding-top: 9vh;
 }
 
-
-button {
-  top: 0;
-  display: inline-flex;
-  justify-content: center;
-  padding: .5vh;
-}
