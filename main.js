@@ -18,10 +18,11 @@ function setup() {
   let btn = createButton("Solve");
   btn.mouseClicked(solve);
   btn.position(455,50);
+  btn.center('horizontal');
 
   cols = floor(width/w);
   rows = floor(height/w);
-  
+
   // make the cells
   for (let j = 0; j < rows; j++) {
     for (let i = 0; i < cols; i++){
